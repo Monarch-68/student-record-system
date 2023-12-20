@@ -1,0 +1,27 @@
+html {
+	font-size:62.5%;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+ul, li {
+	list-style: none;
+}
+input {
+	border: none;
+}
+body {
+  width: 144rem;
+}.desktop-1-cwW {
+  width: 100%;
+  height: 102.4rem;
+  position: relative;
+  overflow: hidden;
+  /* filter: blur(1.25rem); */
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url('../assets/priscilla-du-preez-ggez9oyi-pe-unsplash-1-bg.png');
+  background-color: #ffffff;
+}
