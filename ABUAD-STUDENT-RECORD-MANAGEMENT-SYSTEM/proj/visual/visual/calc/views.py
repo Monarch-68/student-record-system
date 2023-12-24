@@ -27,17 +27,18 @@ def classify_image(request):
         fs = FileSystemStorage()
         filename = fs.save(image.name, image)
         image_path = fs.url(filename)
-
+        phonenumber = request.POST['phonenumber']
 
 
         demo_table = resource('dynamodb').Table('demo-db')
         response = demo_table.put_item(
             Item={
-               'customer_ID' : firstname,#partition key
-               'order_id' : 'ord-7',#Sort key
+               'customer_ID' :matricno ,#partition key
+               'order_id' : phonenumber,#Sort key
                'status' : 'cending',
                'created_date' : datetime.now().isoformat(),
                'matric_no' : matricno,
+               'firstname'  : firstname,
                'image_path' : image_path,
                'surname'   : surname,
                'middlename' : middlename,
@@ -47,7 +48,7 @@ def classify_image(request):
                'gender'      : gender,
                'residentialaddress' : residentialaddress,
                'emailaddress'    : emailaddress,
-
+               'phonenumber'   : phonenumber,
           }
      )
         print(f"insert response : {response}")
