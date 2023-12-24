@@ -4,7 +4,6 @@ import numpy as np
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
-from keras.models import load_model
 from boto3 import resource
 from boto3.dynamodb.conditions import Attr, Key
 from datetime import datetime
@@ -13,8 +12,8 @@ from datetime import datetime
 # rememeber to check the othe proj callled final year because of the image issue 
 # if not POST use FILES for request
 def classify_image(request):
-    if request.method == 'POST'  :
-        
+    if request.method == 'POST' and request.FILES['image'] :
+        image = request.FILES['image']
         firstname = request.POST['firstname']
         surname = request.POST['surname']
         middlename = request.POST['middlename']
@@ -25,6 +24,10 @@ def classify_image(request):
         gender = request.POST['gender']
         residentialaddress = request.POST['residentialaddress']
         emailaddress = request.POST['emailaddress']
+        fs = FileSystemStorage()
+        filename = fs.save(image.name, image)
+        image_path = fs.url(filename)
+
 
 
         demo_table = resource('dynamodb').Table('demo-db')
@@ -35,7 +38,7 @@ def classify_image(request):
                'status' : 'cending',
                'created_date' : datetime.now().isoformat(),
                'matric_no' : matricno,
-    
+               'image_path' : image_path,
                'surname'   : surname,
                'middlename' : middlename,
                'dateofbirth' : dateofbirth,
